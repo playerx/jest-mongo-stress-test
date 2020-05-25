@@ -1,5 +1,7 @@
 import { getClient, getRepository } from 'jok-mango'
 import { ClientSession, Db } from 'mongodb'
+import * as uuid from 'uuid'
+
 let client
 
 export async function getDbContext(
@@ -10,7 +12,7 @@ export async function getDbContext(
     client = await getClient(connectionString)
   }
 
-  const db = await client.db(dbName)
+  const db = await client.db(dbName + uuid.v4())
 
   return new DbContext(db)
 }
