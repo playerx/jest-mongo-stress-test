@@ -9,7 +9,5 @@ module.exports = {
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
 
   //   preset: '@shelf/jest-mongodb',
-  globalSetup: resolve(__dirname, './jest/setup.js'),
-  globalTeardown: resolve(__dirname, './jest/teardown.js'),
-  testEnvironment: resolve(__dirname, './jest/environment.js'),
+  preset: resolve(__dirname, './jest-replicaset'),
 }

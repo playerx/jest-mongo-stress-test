@@ -8,18 +8,22 @@ beforeAll(() =>
 
 describe('simpleTest', () => {
   it('should save user in db', async () => {
-    const user = await db.users.query({ name: 'Ezeki' })
+    let user = await db.users.query({ name: 'Ezeki' }).then(x => x[0])
     if (!user) {
-      await db.users.create({ name: 'Ezeki' })
+      user = await db.users.create({ name: 'Ezeki' })
     }
+
+    expect(user).toBeTruthy()
   })
 })
 
 describe('simpleTest', () => {
   it('should save user in db', async () => {
-    const user = await db.users.query({ name: 'Ezeki' })
+    let user = await db.users.query({ name: 'Ezeki' }).then(x => x[0])
     if (!user) {
-      await db.users.create({ name: 'Ezeki' })
+      user = await db.users.create({ name: 'Ezeki' })
     }
+
+    expect(user).toBeTruthy()
   })
 })
