@@ -84,25 +84,24 @@ for (let i = 0; i < 100; i++) {
     )
 
     it('should rollback', async () => {
-      const count1 = await db.users.count()
-      expect(count1).toBe(0)
+      const user = await db.users.create({ name: 'u1' })
 
-      const count2 = await db.transactions.count()
-      expect(count2).toBe(0)
+      const count1 = await db.users.count()
+      expect(count1).toBe(1)
 
       try {
         await db.runTransaction(async dbx => {
-          await dbx.users.create({ name: 'u1' })
-          await dbx.transactions.create({ name: 't2' })
+          await dbx.users.update({ id: user.id }, { name: 'u223' })
+          //   await dbx.transactions.create({ name: 't2' })
           throw new Error('OOPS')
         })
       } catch {}
 
       const countCheck1 = await db.users.count()
-      expect(countCheck1).toBe(0)
+      expect(countCheck1).toBe(1)
 
-      const countCheck2 = await db.transactions.count()
-      expect(countCheck2).toBe(0)
+      const updatedUser = await db.users.get(user.id)
+      expect(updatedUser!['name']).toBe('u1')
     })
   })
 }
