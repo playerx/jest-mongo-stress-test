@@ -95,7 +95,9 @@ for (let i = 0; i < 100; i++) {
           //   await dbx.transactions.create({ name: 't2' })
           throw new Error('OOPS')
         })
-      } catch {}
+      } catch (err) {
+        expect(err.message).toBe('OOPS')
+      }
 
       const countCheck1 = await db.users.count()
       expect(countCheck1).toBe(1)
